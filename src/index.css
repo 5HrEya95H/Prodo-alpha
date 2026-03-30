@@ -10,5 +10,11 @@
   height: 20px;
   width:80px;
   border: 2px black solid;
-  
+
+}
+
+.note{
+  background-color: rgb(4, 120, 81);
+  height: 100vh;
+  width: 100vw;
 }
