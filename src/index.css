@@ -5,3 +5,10 @@
   font-family: sans-serif;
 }
 
+.note{
+  background-color: rgb(244, 244, 82);
+  height: 20px;
+  width:80px;
+  border: 2px black solid;
+  
+}
