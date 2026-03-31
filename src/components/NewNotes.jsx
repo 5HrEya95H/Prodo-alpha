@@ -12,8 +12,6 @@ const NewNotes = ({notes, setNotes}) => {
       y: Math.floor(Math.random()*maxY),
         }
     }
-    const position = determineNewPosition();
-
     useEffect(() => {
         if (notes.length === 0) return;
 
@@ -30,37 +28,43 @@ const NewNotes = ({notes, setNotes}) => {
         setNotes(updatedNotes);
     }, []);
 
-  
-    const noteRefs = useRef([]);
 
-    const handleDragStart=(note,e)=>{
-        const id = note.id;
-        const noteRef = noteRefs.current[id].current;
+    const handleDragStart = (note, e) => {
+        e.preventDefault();
 
-        const offsetX = e.clientX - 5;
-        const offsetY = e.clientY - 5;
+        const offsetX = e.clientX - note.position.x - 5;
+        const offsetY = e.clientY - note.position.y - 5;
 
         const handleMouseMove = (e) => {
             const newX = e.clientX - offsetX;
             const newY = e.clientY - offsetY;
 
-            noteRef.style.left = `${newX}px`;
-            noteRef.style.top = `${newY}px`;
-
-            position.x = newX;
-            position.y = newY;
+            setNotes(prev =>
+            prev.map(n =>
+                n.id === note.id
+                ? { ...n, position: { x: newX, y: newY } }
+                : n
+            )
+            );
         };
 
-    }
+        window.addEventListener("mousemove", handleMouseMove);
+        window.addEventListener("mouseup", () => {
+            window.removeEventListener("mousemove", handleMouseMove);
+        }, { once: true });
+    };
+    
 
   return (
     <div className='notes'>
       {notes.map((note) => {
         return (
           <Note
+            note={note}
             key={note.id}
             content={note.text}
             initialPos={note.position}
+            handleDragStart = {handleDragStart}
           />
         )
       })}

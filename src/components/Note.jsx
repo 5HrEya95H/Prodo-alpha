@@ -1,24 +1,29 @@
-import React, { forwardRef } from 'react'
-import {IoMdClose} from "react-icons/io";
+import React from 'react'
+import { IoMdClose } from "react-icons/io";
 
-const Note = forwardRef(({content, initialPos,...props},ref) => {
+const Note = ({ note, handleDragStart }) => {
   return (
     <div 
-    ref={ref}
-    className='note' {...props}
-    style={{
-      left: `${initialPos?.x}px`,
-      top: `${initialPos?.y}px`,
-    }}>
+      className='note'
+      style={{
+        position: "absolute",
+        left: `${note.position?.x}px`,
+        top: `${note.position?.y}px`,
+      }}
+    >
       <div className='Notehead'>
-        <div className='move'>📌</div>
-        <input className='NoteName' placeholder='Title'></input>
-        <button className='NoteBtn'><IoMdClose size={15}/></button>
+        <div onMouseDown={(e) => handleDragStart(note, e)} style={{cursor: 'move'}}>📌</div>
+
+        <input className='NoteName' placeholder='Title' />
+
+        <button className='NoteBtn'>
+          <IoMdClose size={15}/>
+        </button>
       </div>
-      <div className='NoteText'>{content}</div>
-      
+
+      <div className='NoteText'>{note.text}</div>
     </div>
   )
-})
+}
 
 export default Note
