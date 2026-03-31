@@ -71,3 +71,9 @@
   resize: both;
   position: absolute;
 }
+textarea {
+  resize: none;       /* disable manual resize */
+  outline: none;
+  border: none;
+  background: transparent;
+}

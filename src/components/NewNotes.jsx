@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, createRef} from 'react'
 
 const NewNotes = ({notes, setNotes}) => {
     
+    //local storage and positions
     const determineNewPosition= ()=>{
     const maxX= window.innerWidth-250;
     const maxY = window.innerHeight - 250;
@@ -35,6 +36,7 @@ const NewNotes = ({notes, setNotes}) => {
         localStorage.setItem("notes", JSON.stringify(notes));
     }, [notes]);
 
+    // dragging
     const handleDragStart = (note, e) => {
         e.preventDefault();
 
@@ -60,6 +62,17 @@ const NewNotes = ({notes, setNotes}) => {
         }, { once: true });
     };
     
+    //updatings
+    const handleUpdate = (id, updatedFields) => {
+        setNotes(prev =>
+            prev.map(note =>
+            note.id === id
+                ? { ...note, ...updatedFields }
+                : note
+            )
+        );
+        console.log(updatedFields)
+    };
 
   return (
     <div className='notes'>
@@ -67,10 +80,8 @@ const NewNotes = ({notes, setNotes}) => {
         return (
           <Note
             note={note}
-            key={note.id}
-            content={note.text}
-            initialPos={note.position}
             handleDragStart = {handleDragStart}
+            onUpdate={handleUpdate}
           />
         )
       })}

@@ -16,8 +16,6 @@ useEffect(()=>{
     let minutes = time.getMinutes();
     let seconds = time.getSeconds();
 
-
-    console.log(hours);
   return (
     <div className='clock-container'>
         <h1 className='time'>{hours}:{minutes}:{seconds} {midriem}</h1>
