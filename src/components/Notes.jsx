@@ -1,6 +1,36 @@
+import { useEffect } from 'react'
 import Note from './Note'
 
 const Notes = ({ notes = [], setNotes = () => {} }) => {
+  
+  useEffect(()=>{
+    //local storage logic
+    const savedNotes = [];
+
+    const updatedNotes = notes.map((note)=>{
+      const savedNote = null;
+      if(savedNote){
+        return {}
+      }
+      else{
+        const position = determineNewPosition();
+        return{...note, position};
+      }
+    });
+
+    setNotes(updatedNotes);
+  },[notes.length])
+  
+  const determineNewPosition= ()=>{
+    const maxX= window.innerWidth-250;
+    const maxY = window.innerHeight - 250;
+
+    return {
+      x: Math.floor(Math.random()*maxX),
+      y: Math.floor(Math.random()*maxY),
+    }
+  }
+  
   return (
     <div className='notes'>
       {notes.map((note) => {
@@ -8,11 +38,11 @@ const Notes = ({ notes = [], setNotes = () => {} }) => {
           <Note
             key={note.id}
             content={note.text}
+            initialPos={note.position}
           />
         )
       })}
     </div>
   )
 }
-
 export default Notes

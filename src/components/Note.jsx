@@ -1,8 +1,14 @@
 import React from 'react'
 
-const Note = ({content,...props}) => {
+const Note = ({content, initialPos,...props}) => {
   return (
-    <div className='note'>{content}</div>
+    <div className='note' {...props}
+    style={{
+      left: `${initialPos?.x}px`,
+      top: `${initialPos?.y}px`,
+    }}>
+      📌{content}
+    </div>
   )
 }
 
