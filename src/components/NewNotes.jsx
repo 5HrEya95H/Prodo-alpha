@@ -2,7 +2,7 @@ import Note from "./Note"
 import { useState, useEffect, useRef, createRef} from 'react'
 
 const NewNotes = ({notes, setNotes}) => {
-
+    
     const determineNewPosition= ()=>{
     const maxX= window.innerWidth-250;
     const maxY = window.innerHeight - 250;
@@ -13,21 +13,27 @@ const NewNotes = ({notes, setNotes}) => {
         }
     }
     useEffect(() => {
-        if (notes.length === 0) return;
+        const savedNotes = JSON.parse(localStorage.getItem("notes")) || [];
 
-        const updatedNotes = notes.map(note => {
-            if (!note.position) {
-            return {
+        setNotes(prev =>
+            prev.map(note => {
+            const savedNote = savedNotes.find(n => n.id === note.id);
+
+            if (savedNote) {
+                return { ...note, ...savedNote }; // includes position, text, title
+            } else {
+                return {
                 ...note,
                 position: determineNewPosition(),
-            };
+                };
             }
-            return note;
-        });
-
-        setNotes(updatedNotes);
+            })
+        );
     }, []);
 
+    useEffect(() => {
+        localStorage.setItem("notes", JSON.stringify(notes));
+    }, [notes]);
 
     const handleDragStart = (note, e) => {
         e.preventDefault();

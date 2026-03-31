@@ -3,24 +3,24 @@
 
 // const Notes = ({ notes = [], setNotes = () => {} }) => {
   
-//   useEffect(()=>{
-//     //local storage logic
-//     const savedNotes = JSON.parse(localStorage.getItem('notes'))||[];
+  useEffect(()=>{
+    //local storage logic
+    const savedNotes = JSON.parse(localStorage.getItem('notes'))||[];
 
-//     const updatedNotes = notes.map((note)=>{
-//       const savedNote = savedNotes.find((n)=>n.id==note.id);
-//       if(savedNote){
-//         return {...note, position: savedNote.position}
-//       }
-//       else{
-//         const position = determineNewPosition();
-//         return{...note, position};
-//       }
-//     });
+    const updatedNotes = notes.map((note)=>{
+      const savedNote = savedNotes.find((n)=>n.id==note.id);
+      if(savedNote){
+        return {...note, position: savedNote.position}
+      }
+      else{
+        const position = determineNewPosition();
+        return{...note, position};
+      }
+    });
 
-//     setNotes(updatedNotes);
-//     localStorage.setItem("notes",JSON.stringify(updatedNotes));
-//   },[notes.length])
+    setNotes(updatedNotes);
+    localStorage.setItem("notes",JSON.stringify(updatedNotes));
+  },[notes.length])
   
 //   const determineNewPosition= ()=>{
 //     const maxX= window.innerWidth-250;

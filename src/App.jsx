@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Notes from './components/Notes'
 import Clock from './components/Clock'
 import NewNotes from './components/NewNotes'
 
