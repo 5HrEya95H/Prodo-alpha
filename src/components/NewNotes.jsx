@@ -62,7 +62,7 @@ const NewNotes = ({notes, setNotes}) => {
         }, { once: true });
     };
     
-    //updatings
+    //updatings -- not working
     const handleUpdate = (id, updatedFields) => {
         setNotes(prev =>
             prev.map(note =>
@@ -74,15 +74,24 @@ const NewNotes = ({notes, setNotes}) => {
         console.log(updatedFields)
     };
 
+
+    //toggling elements
+
+    const [toggleNote, setToggleNote] = useState(true);
+
+
   return (
     <div className='notes'>
       {notes.map((note) => {
         return (
-          <Note
-            note={note}
-            handleDragStart = {handleDragStart}
-            onUpdate={handleUpdate}
-          />
+            <div>
+                {toggleNote && <Note
+                    note={note}
+                    handleDragStart = {handleDragStart}
+                    onUpdate={handleUpdate}
+                />}
+                <button onClick={()=>setToggleNote(!toggleNote)}>Toggle notes</button>
+            </div>
         )
       })}
     </div>

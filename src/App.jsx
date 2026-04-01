@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import Clock from './components/Clock'
 import NewNotes from './components/NewNotes'
+import WindowBox from './components/Journal';
+import Journal from './components/Journal';
+
 
 const App = () => {
 
@@ -11,8 +14,12 @@ const App = () => {
 
   return (
     <div>
-      {/* <Clock/> */}
+      {/* <Clock/> 
       <NewNotes notes={notes} setNotes={setNotes}/>
+        */}
+      
+      <Journal></Journal>
+      
     </div>
   )
 }
