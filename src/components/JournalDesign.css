@@ -39,6 +39,12 @@
     border: 0.8px solid black;
 }
 
+.active{
+    background-color: green;
+}
+.no-select {
+  user-select: none;
+}
 .timeNotes{
     width: 100%;
 }

@@ -1,53 +1,81 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './JournalDesign.css'
 
 
 const Journal = () => {
 
-    const [selectedCells, setSelectedCells] = useState([]);
+    const [isDragging, setIsDragging] = useState(false);
+    const [selected, setSelected] = useState([]);
+    const [color, setColor ] = useState("white");
 
+    const handleMouseDown = (id) => {
+        setIsDragging(true);
+        setSelected(prev =>
+            prev.includes(id) 
+            ? prev.filter(item=> item!==id)
+            : [...prev,id]
+        )
+        setColor(prev=> prev==="white"? "green": "white")
+    };
 
-    const handleDrag=()=>{
+    const handleMouseEnter = (id) => {
+    if (!isDragging) return;
+    setSelected(prev =>
+        prev.includes(id) 
+        ? prev.filter(item=> item!==id)
+        : [...prev,id]
+    )
+    setColor(prev=> prev==="white"? "green": "white")
+    };
 
-        const handleMouseDown=(index)=>{
-            
-        }
-        const handleMouseDrag=()=>{
-
-        }
-        const handleMouseUp=()=>{
-
-        }
-
+    const handleMouseUp = () => {
+    setIsDragging(false);
     }
+
+    useEffect(() => {
+    const stopDrag = () => setIsDragging(false);
+    window.addEventListener("mouseup", stopDrag);
+
+    return () => window.removeEventListener("mouseup", stopDrag);
+    }, []);
 
 
   return (
     <div>
         <div className='left'>
-            <div className='trackerContainer'>
+            <div className={`trackerContainer ${isDragging ? "no-select" : ""}`}>
                 {Array.from({ length: 24 }, (_, i) => (5 + i) % 24).map((h, i) => {
                     const hour12 = h % 12 === 0 ? 12 : h % 12;
                     const period = h < 12 ? "AM" : "PM";
 
                     return (
-                    <div className='tracker'>
-                        <div key={i} className='timeSluts'>
+                    <div key={i} className='tracker'>
+                        <div className='timeSluts'>
                             {hour12} {period}
                         </div>
+
                         <div className='timeBars'>
-                            <div className='timeBars'>
-                                {[0, 1].map((half) => (
-                                    <div
-                                        key={half}
-                                        id={`${2*i+half}`}   // unique id
-                                        className='halfBar'
-                                        onClick={(e)=>{console.log(e.target.id)}}
-                                    ></div>
-                                ))}
-                                </div>
+                            {[0, 1].map((half) => {
+                            const id = 2 * i + half;
+
+                            return (
+                                <div
+                                key={id}
+                                className={`halfBar ${
+                                    selected.includes(id) ? "active" : ""
+                                }`
+                                }
+                                onMouseDown={() => handleMouseDown(id)}
+                                onMouseEnter={() => handleMouseEnter(id)}
+                                onMouseUp={handleMouseUp}
+                                ></div>
+                            );
+                            })}
                         </div>
-                        <div className='timeNotes'><textarea className="timeNote"/></div>
+
+                        <div className='timeNotes'>
+                            <textarea className="timeNote" />
+                        </div>
                     </div>
                     );
                 })}
