@@ -4,9 +4,12 @@ import './JournalDesign.css'
 
 const Journal = () => {
 
+    const time = new Date();
+    const date = time.toLocaleString();
+
     const [isDragging, setIsDragging] = useState(false);
     const [selected, setSelected] = useState([]);
-    const [color, setColor ] = useState("white");
+    const [color, setColor ] = useState("white")
 
     const handleMouseDown = (id) => {
         setIsDragging(true);
@@ -41,8 +44,12 @@ const Journal = () => {
 
 
   return (
-    <div>
+    <div className='JournalBox'>
+        <div className='JournalHead'>
+            <h1>{date}</h1>
+        </div>
         <div className='left'>
+            <div className='leftHead'></div>
             <div className={`trackerContainer ${isDragging ? "no-select" : ""}`}>
                 {Array.from({ length: 24 }, (_, i) => (5 + i) % 24).map((h, i) => {
                     const hour12 = h % 12 === 0 ? 12 : h % 12;
@@ -81,8 +88,10 @@ const Journal = () => {
                 })}
             </div>
         </div>
+        
         <div className='right'>
-
+            <div className='rightHead'></div>
+            <textarea className='JournalText'></textarea>
         </div>
     </div>
   )
