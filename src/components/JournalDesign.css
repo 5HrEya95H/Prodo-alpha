@@ -4,20 +4,29 @@
     box-sizing: border-box;
 }
 
-.left, .right{
-    border: 1px solid black;
+.left{
     width: 100%;
+
+}
+.JournalCont{
+    /*for bg image*/
+    border-image-slice:
+    276 292 276 300 fill;
+    border-image-width:
+    10px 10px 10px 10px;
+    border-image-outset:
+    0px 0px 0px 0px;
+    border-image-repeat:
+    stretch stretch;
+    border-image-source: url("../images/Box.png");
+
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    min-width: 800px;
+
 }
 
-.JournalBox{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    border: 2px solid black;
-
-    margin: 40px auto;
-    max-width: 900px;
-    padding: 10px;
-}
 @media(max-width: 500px){
     .JournalBox{
         grid-template-columns: 1fr;
@@ -31,7 +40,6 @@
 
 .JournalText{
     padding: 12px;
-    border: 1px solid black;
     width: 100%;
     height: 100%;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -84,4 +92,5 @@
     padding: 2px;
     font-size: 16px;
     width: 100%;
+    background-color: aliceblue;
 }

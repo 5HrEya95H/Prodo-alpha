@@ -4,6 +4,22 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
+.inventoryBox{
+  position: absolute;
+  margin: 100px auto;
+}
+
+.Home{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+  
+  min-width: 600px;
+}
+
 
 .note{
   position:absolute;

@@ -13,12 +13,12 @@ const App = () => {
   });
 
   return (
-    <div>
+    <div className='Home'>
       {/* <Clock/> 
       <NewNotes notes={notes} setNotes={setNotes}/>
-        */}
+   */}
       
-      <Journal></Journal>
+      <Journal className="inventoryBox"></Journal>
       
     </div>
   )
