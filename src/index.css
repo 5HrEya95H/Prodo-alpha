@@ -23,9 +23,10 @@
   align-items: center; */
   width: 100vw;
   height: 100vh;
-  overflow:visible;
+  overflow:scroll;
   
   min-width: 600px;
+  background-color: green;
 }
 
 
@@ -96,7 +97,7 @@
   position: absolute;
 }
 textarea {
-  resize: none;       /* disable manual resize */
+  resize: none; 
   outline: none;
   border: none;
   background: transparent;

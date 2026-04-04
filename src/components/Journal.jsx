@@ -45,11 +45,20 @@ const Journal = () => {
 
   return (
     <div className='JournalCont'>
+            <div className='BoxHead'>
+                <div className='BoxDate'><span>4</span></div>
+                <div className='BoxDay'><span>Saturday</span></div>
+            </div>
+
             <div className='left'>
                 <div className='JournalHead'>
-                    <h3>Daily Journal</h3>
+                    Daily Journal
                 </div>
-                {/* <div className='leftHead'></div> */}
+                <div className='leftHead'>
+                    <div className='chipsHead'>
+                        Choose Category of task...
+                    </div>
+                </div>
                 <div className={`trackerContainer ${isDragging ? "no-select" : ""}`}>
                     {Array.from({ length: 24 }, (_, i) => (5 + i) % 24).map((h, i) => {
                         const hour12 = h % 12 === 0 ? 12 : h % 12;
@@ -57,6 +66,7 @@ const Journal = () => {
 
                         return (
                         <div key={i} className='tracker'>
+
                             <div className='timeSluts'>
                                 {hour12}{period}
                             </div>
@@ -83,6 +93,7 @@ const Journal = () => {
                             <div className='timeNotes'>
                                 <textarea className="timeNote" />
                             </div>
+
                         </div>
                         );
                     })}
@@ -90,9 +101,11 @@ const Journal = () => {
             </div>
             
             <div className='right'>
-                <div className='rightHead'></div>
-                <textarea className='JournalText'></textarea>
+                <div className='rightHead'>Welcome Shreyansh,</div>
+                <textarea className='JournalText' placeholder='How was your day?...'></textarea>
             </div>
+
+            <div className='BoxBadge'></div>
     </div>
   )
 }
