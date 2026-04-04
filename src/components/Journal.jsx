@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './JournalDesign.css'
-import Inventory from './Inventory';
-
-
+import '../Designs/JournalDesign.css';
 const Journal = () => {
 
     const time = new Date();
