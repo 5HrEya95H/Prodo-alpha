@@ -47,9 +47,9 @@ const Journal = () => {
     <div className='JournalCont'>
             <div className='left'>
                 <div className='JournalHead'>
-                    <h3>{date}</h3>
+                    <h3>Daily Journal</h3>
                 </div>
-                <div className='leftHead'></div>
+                {/* <div className='leftHead'></div> */}
                 <div className={`trackerContainer ${isDragging ? "no-select" : ""}`}>
                     {Array.from({ length: 24 }, (_, i) => (5 + i) % 24).map((h, i) => {
                         const hour12 = h % 12 === 0 ? 12 : h % 12;
@@ -58,7 +58,7 @@ const Journal = () => {
                         return (
                         <div key={i} className='tracker'>
                             <div className='timeSluts'>
-                                {hour12} {period}
+                                {hour12}{period}
                             </div>
 
                             <div className='timeBars'>
