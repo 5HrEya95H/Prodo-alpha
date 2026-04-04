@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './JournalDesign.css'
+import Inventory from './Inventory';
 
 
 const Journal = () => {
@@ -44,8 +45,7 @@ const Journal = () => {
 
 
   return (
-    <div className='JournalCont'>
-            <div className='CloseBtn'>X</div>
+    <>
             <div className='BoxHead'>
                 <div className='BoxDate'><span>4</span></div>
                 <div className='BoxDay'><span>Saturday</span></div>
@@ -107,7 +107,7 @@ const Journal = () => {
             </div>
 
             <div className='BoxBadge'></div>
-    </div>
+    </>
   )
 }
 

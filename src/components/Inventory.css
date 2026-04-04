@@ -1,0 +1,24 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.Container{
+    background-image: url("../images/Box.png");
+    background-size: cover;
+    background-repeat: none;
+    width: 890px;
+    height: 510px;
+    padding: 45px;
+    padding-bottom: 40px;
+    position: absolute;
+    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    justify-content: space-around;
+    gap: 80px;
+    position: relative;
+}
