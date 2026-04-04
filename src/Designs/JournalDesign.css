@@ -4,30 +4,7 @@
     box-sizing: border-box;
 }
 
-.left{
-    width: 50%;
-    border: 2px solid rgba(255, 255, 255, 0);
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 8px;
-}
-.right{
-    padding: 8px;
-    width: 50%;
-    border: 2px solid rgba(255, 255, 255, 0);
-}
 .JournalCont{
-    /*for bg image*/
-    /* border-image-slice:
-    276 292 276 300 fill;
-    border-image-width:
-    10px 10px 10px 10px;
-    border-image-outset:
-    0px 0px 0px 0px;    
-    border-image-repeat:
-    stretch stretch;
-    border-image-source: url("../images/Box.png"); */
 
     background-image: url("../images/Box.png");
     background-size: cover;
