@@ -13,9 +13,7 @@ const App = () => {
 
   return (
     <div className='Home'>
-     <Clock/>  {/* 
-      <NewNotes notes={notes} setNotes={setNotes}/>
-   */}
+     <Clock/>
      <Inventory component={<Journal/>}/>
     </div>
   )
