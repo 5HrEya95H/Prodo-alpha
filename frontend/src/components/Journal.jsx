@@ -1,25 +1,61 @@
 import { useState, useEffect } from "react";
 
+const colourCodes = [
+	{
+		name: "Study",
+		color: "blue",
+		background_color: "bg-blue-500",
+		border: " border border-blue-500",
+	},
+	{
+		name: "code",
+		color: "green",
+		background_color: "bg-green-500",
+		border: " border border-green-500",
+	},
+	{
+		name: "exercise",
+		color: "yellow",
+		background_color: "bg-yellow-500",
+		border: " border border-yellow-500",
+	},
+	{
+		name: "video games",
+		color: "orange",
+		background_color: "bg-orange-500",
+		border: " border border-orange-500",
+	},
+	{
+		name: "sleep",
+		color: "purple",
+		background_color: "bg-purple-500",
+		border: " border border-purple-500",
+	},
+];
 const Journal = () => {
 	const time = new Date();
 	const dayNumber = time.getDate();
 	const dayLabel = time.toLocaleDateString("en-US", { weekday: "long" });
 
 	const [isDragging, setIsDragging] = useState(false);
-	const [selected, setSelected] = useState([]);
+	const [colour, setColour] = useState(null);
+	const [selectedColours, setSelectedColours] = useState({});
+
+	const handlePaint = (id) => {
+		setSelectedColours((prev) => ({
+			...prev,
+			[id]: colour,
+		}));
+	};
 
 	const handleMouseDown = (id) => {
 		setIsDragging(true);
-		setSelected((prev) =>
-			prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
-		);
+		handlePaint(id);
 	};
 
 	const handleMouseEnter = (id) => {
 		if (!isDragging) return;
-		setSelected((prev) =>
-			prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
-		);
+		handlePaint(id);
 	};
 
 	const handleMouseUp = () => {
@@ -34,8 +70,11 @@ const Journal = () => {
 	}, []);
 
 	return (
-		<>
-			<div className='absolute -top-10 left-6 flex flex-col items-center justify-center'>
+		<div
+			id='journal'
+			className='w-full flex justify-between rounded-md border-2 border-stone-800 shadow-[0_8px_16px_rgba(0,0,0,0.35)]'
+		>
+			<div className='absolute -top-9 left-1/2 -translate-x-[50%] flex flex-col items-center justify-center'>
 				<div className='relative top-1 flex h-16.25 w-16.25 items-center justify-center border-[3px] border-amber-900 bg-amber-100 text-[40px]'>
 					<span>{dayNumber}</span>
 				</div>
@@ -44,12 +83,25 @@ const Journal = () => {
 				</div>
 			</div>
 
-			<div className='flex w-1/2 flex-col gap-1 border-2 border-transparent p-2'>
+			<div className='flex w-[45%] flex-col border-2 border-transparent p-2'>
 				<div className='m-1 border-b-2 border-black text-center text-base'>
 					<p>Daily Journal</p>
 				</div>
-				<div className='h-12.5 w-full p-1'>
+				<div className=' w-full p-1'>
 					<div className='text-[10px]'>Choose Category of task...</div>
+					<ul className='flex gap-1 flex-wrap'>
+						{colourCodes.map((item, index) => {
+							return (
+								<li
+									key={index}
+									className={`px-2 py-0.5 text-[0.5vw] capitalize rounded-full ${item.border} cursor-pointer whitespace-nowrap ${item.color === colour ? item.background_color : "bg-transparent"}`}
+									onClick={() => setColour(item.color)}
+								>
+									{item.name}
+								</li>
+							);
+						})}
+					</ul>
 				</div>
 				<div
 					className={`w-full overflow-y-auto rounded ${isDragging ? "select-none" : ""}`}
@@ -60,8 +112,8 @@ const Journal = () => {
 							const period = h < 12 ? "AM" : "PM";
 
 							return (
-								<div key={i} className='flex'>
-									<div className='flex w-10 items-center justify-center border border-black bg-amber-100 text-[10px]'>
+								<div key={i} className='flex h-6'>
+									<div className='flex w-10 items-center justify-center border border-black bg-amber-100 text-[8px]'>
 										{hour12}
 										{period}
 									</div>
@@ -69,11 +121,16 @@ const Journal = () => {
 									<div className='w-5'>
 										{[0, 1].map((half) => {
 											const id = 2 * i + half;
+											const activeColour = selectedColours[id];
+											const activeColourClass =
+												colourCodes.find(
+													(item) => item.color === activeColour,
+												)?.background_color || "";
 
 											return (
 												<div
 													key={id}
-													className={`h-1/2 border-[0.8px] border-black ${selected.includes(id) ? "bg-green-600" : "bg-green-900"}`}
+													className={`h-1/2 border-[0.8px] border-black ${activeColourClass}`}
 													onMouseDown={() => handleMouseDown(id)}
 													onMouseEnter={() => handleMouseEnter(id)}
 													onMouseUp={handleMouseUp}
@@ -92,7 +149,7 @@ const Journal = () => {
 				</div>
 			</div>
 
-			<div className='w-1/2 border-2 border-transparent p-2'>
+			<div className='w-[45%] border-2 border-transparent p-2'>
 				<div className='m-1 border-b-2 border-black text-center text-base'>
 					Welcome Shreyansh,
 				</div>
@@ -103,7 +160,7 @@ const Journal = () => {
 			</div>
 
 			<div className='absolute -bottom-2 -right-2 h-30 w-30 rounded-full border-[6px] border-white bg-red-600'></div>
-		</>
+		</div>
 	);
 };
 
