@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import ParentForm from "./utils/ParentForm";
+import CreateColor_Journal from "./forms/CreateColor_Journal";
 
 const colourCodes = [
 	{
@@ -20,10 +22,10 @@ const colourCodes = [
 		border: " border border-yellow-500",
 	},
 	{
-		name: "video games",
-		color: "orange",
-		background_color: "bg-orange-500",
-		border: " border border-orange-500",
+		name: "deselect",
+		color: "transparent",
+		background_color: "bg-transparent",
+		border: " border border-white",
 	},
 	{
 		name: "sleep",
@@ -38,8 +40,9 @@ const Journal = () => {
 	const dayLabel = time.toLocaleDateString("en-US", { weekday: "long" });
 
 	const [isDragging, setIsDragging] = useState(false);
-	const [colour, setColour] = useState(null);
+	const [colour, setColour] = useState("purple");
 	const [selectedColours, setSelectedColours] = useState({});
+	const [createColour, setCreateColour] = useState(false);
 
 	const handlePaint = (id) => {
 		setSelectedColours((prev) => ({
@@ -62,6 +65,18 @@ const Journal = () => {
 		setIsDragging(false);
 	};
 
+	const handleCreateColour = (e) => {
+		e.preventDefault();
+		let color = e.target.color.value;
+		const newColour = {
+			name: e.target.name.value,
+			color: color,
+			background_color: `bg-${color}-500`,
+			border: `border border-${color}-500`,
+		};
+		colourCodes.push(newColour);
+		setCreateColour(false);
+	};
 	useEffect(() => {
 		const stopDrag = () => setIsDragging(false);
 		window.addEventListener("mouseup", stopDrag);
@@ -101,6 +116,13 @@ const Journal = () => {
 								</li>
 							);
 						})}
+						<li
+							className='px-2 py-0.5 text-[0.5vw] capitalize rounded-full ${item.border} cursor-pointer whitespace-nowrap border border-amber-950 text-amber-950'
+							onClick={() => setCreateColour(true)}
+						>
+							{" "}
+							+ create
+						</li>
 					</ul>
 				</div>
 				<div
@@ -160,6 +182,11 @@ const Journal = () => {
 			</div>
 
 			<div className='absolute -bottom-2 -right-2 h-30 w-30 rounded-full border-[6px] border-white bg-red-600'></div>
+			{createColour && (
+				<ParentForm CloseEvent={() => setCreateColour(false)}>
+					<CreateColor_Journal handleCreateColour={handleCreateColour} />
+				</ParentForm>
+			)}
 		</div>
 	);
 };
